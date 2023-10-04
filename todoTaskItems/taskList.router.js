@@ -24,14 +24,14 @@ router.get(
 );
 router.post(
   "/createTaskItem/:id",
-  authVerify.userAuthVerification,
   inputValidation.createTaskItemInputValidation,
+  authVerify.userAuthVerification,
   service.createTaskItem
 );
 router.put(
   "/updateTaskItemById/:id",
-  authVerify.userAuthVerification,
   inputValidation.updateTaskIdemInputValidation,
+  authVerify.userAuthVerification,
   service.updateTaskItem
 );
 router.patch(

@@ -1,7 +1,8 @@
 const { token } = require("./auth.model");
 const repository = require("./auth.repository");
 const jwt = require("../helpers/helper.newToken");
-const decode = require("jsonwebtoken");
+//const decode = require("jsonwebtoken");
+const decode = require("../helpers/helper.decode")
 const sendMail = require("../helpers/helper.nodeMailer");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -88,12 +89,12 @@ const tokenRefresh = async (req, res, next) => {
       return next(new AppError(" not a existing refreshToken in the DB ", 401));
 
     const refreshTokenDetails = checkRefreshTokenExist.reference;
-
-    const decodedRefreshToken = decode.verify(
-      RefreshToken,
-      process.env.JWT_SECRET
-    );
-    const userId = decodedRefreshToken.id;
+ const decodedRefreshToken = await decode.TokenDecode(RefreshToken);
+    // const decodedRefreshToken = decode.verify(
+    //   RefreshToken,
+    //   process.env.JWT_SECRET
+    // );
+    const userId = decodedRefreshToken;
 
     const User = await user.findOne({
       _id: new mongoose.Types.ObjectId(userId),

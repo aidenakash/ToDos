@@ -1,11 +1,16 @@
 const { task } = require("./task.model")
 const repository = require("./task.repository")
+const paginate = require("../helpers/helper.paginate")
 
 const getAllTask = async (req,res,next)=>{
     try{
       console.log(req.userId)
-        const Users = await repository.findAllTask(req.userId)
-        res.status(200).send(Users);
+      const pageNumber = parseInt(req.query.page);
+      const pageSize = parseInt(req.query.limit);
+
+   const paginateData =  await paginate.pagination(pageNumber, pageSize, req.userId)
+       // const Users = await repository.findAllTask(req.userId)
+        res.status(200).send(paginateData);
     }catch(error){
       console.log(error);
      return res.status(500).send(error);

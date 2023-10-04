@@ -4,12 +4,15 @@ const { taskList } = require("./taskList.model");
 const findAllTaskItem = async () => {
   return await taskList.find( );
 };
-const findAllTaskItemById = async(id)=>{
+const findAllTaskItemById = async(id,limit,startIndex)=>{
 //return await taskList.find({reference:new mongoose.Types.ObjectId(id)})
-const response = await taskList.find({ reference: new mongoose.Types.ObjectId(id) });
+const response = await taskList.find({ reference: new mongoose.Types.ObjectId(id)})
+.skip(startIndex)
+.limit(limit);
+const totalCount = await taskList.find({ reference: new mongoose.Types.ObjectId(id)})
 const result ={};
 result.docs =response;
-result.count = response.length;
+result.count = totalCount.length;
 return result;
 
 }
