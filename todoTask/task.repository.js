@@ -7,13 +7,11 @@ const findAllTask = async (id, limit, startIndex) => {
   const response = await task
     .find({ userId: new mongoose.Types.ObjectId(id) })
     .skip(startIndex)
-    .limit(limit);
-  const totalCount = await task.find({
-    userId: new mongoose.Types.ObjectId(id),
-  });
-  const result = {};
-  result.docs = response;
-  result.count = totalCount.length;
+    .limit(limit); 
+    const totalCount = await task .find({userId: new mongoose.Types.ObjectId(id)});
+    const result = {};
+    result.docs = response;
+    result.count = totalCount.length;
   return result;
 };
 const findTaskCount = async (id) => {

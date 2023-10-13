@@ -5,6 +5,7 @@ const paginate = require("../helpers/helper.paginate")
 const getAllTask = async (req,res,next)=>{
     try{
       console.log(req.userId)
+      console.log(req.query)
       const pageNumber = parseInt(req.query.page);
       const pageSize = parseInt(req.query.limit);
 
@@ -14,7 +15,7 @@ const getAllTask = async (req,res,next)=>{
     }catch(error){
       console.log(error);
      return res.status(500).send(error);
-    }
+    } 
 };
 
 const getAllTaskCount = async(req,res)=>{
